@@ -69,8 +69,7 @@ namespace RssBandit.WinGui.Dialogs {
 		internal PreferencesDialog( 
 			int refreshRate, 
 			RssBanditPreferences prefs, 
-			SearchEngineHandler seHandler, 
-			IdentityNewsServerManager identityManager): 
+			SearchEngineHandler seHandler): 
 			this() 
 		{
 		

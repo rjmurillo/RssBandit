@@ -94,22 +94,6 @@ namespace RssBandit.Core.Storage
 
 		#endregion
 
-		#region identities
-
-		/// <summary>
-		/// Loads the Identities.
-		/// </summary>
-		/// <returns></returns>
-		IdentitiesDictionary LoadIdentities();
-
-		/// <summary>
-		/// Saves the Identities.
-		/// </summary>
-		/// <param name="identities">The identities.</param>
-		void SaveIdentities(IdentitiesDictionary identities);
-
-		#endregion
-
 		/// <summary>
 		/// Gets the used user data file names.
 		/// </summary>

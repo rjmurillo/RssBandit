@@ -168,30 +168,9 @@ namespace RssBandit.Filter
 
         public NewsItemReferrerFilter(RssBanditApplication app)
         {
-            UserIdentity identity;
-			if (app.IdentityManager.Identities.TryGetValue(app.Preferences.UserIdentityForComments, out identity))
-				InitWith(identity);
-
 			// get notified, if prefs are changed (new default identity for comments)
-            app.PreferencesChanged += OnPreferencesChanged;
         }
 
-        /// <summary>
-        /// When the user changes any preferences, this method is called to 
-        /// make sure that we have a correct identity referer url.
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void OnPreferencesChanged(object sender, EventArgs e)
-        {
-			RssBanditApplication app = sender as RssBanditApplication;
-            if (app != null)
-            {
-            	UserIdentity identity;
-				if (app.IdentityManager.Identities.TryGetValue(app.Preferences.UserIdentityForComments, out identity))
-					InitWith(identity);
-            }
-        }
 
         private void InitWith(IUserIdentity ui)
         {

@@ -1118,10 +1118,6 @@
       <DependentUpon>ManageAddInDialog.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="WinGui\Dialogs\PostReplyForm.ko.resx">
-      <DependentUpon>PostReplyForm.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
     <EmbeddedResource Include="WinGui\Dialogs\PreferencesDialog.ko.resx">
       <DependentUpon>PreferencesDialog.cs</DependentUpon>
       <SubType>Designer</SubType>
@@ -1494,74 +1490,6 @@
       <DependentUpon>PodcastOptionsDialog.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="WinGui\Dialogs\PostReplyForm.bg.resx">
-      <DependentUpon>PostReplyForm.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="WinGui\Dialogs\PostReplyForm.de.resx">
-      <DependentUpon>PostReplyForm.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="WinGui\Dialogs\PostReplyForm.es.resx">
-      <DependentUpon>PostReplyForm.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="WinGui\Dialogs\PostReplyForm.fr.resx">
-      <DependentUpon>PostReplyForm.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="WinGui\Dialogs\PostReplyForm.hi.resx">
-      <DependentUpon>PostReplyForm.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="WinGui\Dialogs\PostReplyForm.it.resx">
-      <DependentUpon>PostReplyForm.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="WinGui\Dialogs\PostReplyForm.ja.resx">
-      <DependentUpon>PostReplyForm.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="WinGui\Dialogs\PostReplyForm.nl-NL.resx">
-      <DependentUpon>PostReplyForm.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="WinGui\Dialogs\PostReplyForm.pl.resx">
-      <DependentUpon>PostReplyForm.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="WinGui\Dialogs\PostReplyForm.pt-BR.resx">
-      <DependentUpon>PostReplyForm.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="WinGui\Dialogs\PostReplyForm.resx">
-      <DependentUpon>PostReplyForm.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="WinGui\Dialogs\PostReplyForm.ru.resx">
-      <DependentUpon>PostReplyForm.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="WinGui\Dialogs\PostReplyForm.sr-Cyrl-RS.resx">
-      <DependentUpon>PostReplyForm.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="WinGui\Dialogs\PostReplyForm.sr-Latn-RS.resx">
-      <DependentUpon>PostReplyForm.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="WinGui\Dialogs\PostReplyForm.tr.resx">
-      <DependentUpon>PostReplyForm.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="WinGui\Dialogs\PostReplyForm.zh-Hans.resx">
-      <DependentUpon>PostReplyForm.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="WinGui\Dialogs\PostReplyForm.zh-Hant.resx">
-      <DependentUpon>PostReplyForm.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
     <EmbeddedResource Include="WinGui\Dialogs\PreferencesDialog.bg.resx">
       <DependentUpon>PreferencesDialog.cs</DependentUpon>
       <SubType>Designer</SubType>
@@ -1766,78 +1694,6 @@
       <DependentUpon>SecurityIssueDialog.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="WinGui\Forms\NewsGroupsConfiguration.bg.resx">
-      <DependentUpon>NewsGroupsConfiguration.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="WinGui\Forms\NewsGroupsConfiguration.de.resx">
-      <DependentUpon>NewsGroupsConfiguration.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="WinGui\Forms\NewsGroupsConfiguration.es.resx">
-      <DependentUpon>NewsGroupsConfiguration.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="WinGui\Forms\NewsGroupsConfiguration.fr.resx">
-      <DependentUpon>NewsGroupsConfiguration.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="WinGui\Forms\NewsGroupsConfiguration.hi.resx">
-      <DependentUpon>NewsGroupsConfiguration.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="WinGui\Forms\NewsGroupsConfiguration.it.resx">
-      <DependentUpon>NewsGroupsConfiguration.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="WinGui\Forms\NewsGroupsConfiguration.ja.resx">
-      <DependentUpon>NewsGroupsConfiguration.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="WinGui\Forms\NewsGroupsConfiguration.ko.resx">
-      <DependentUpon>NewsGroupsConfiguration.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="WinGui\Forms\NewsGroupsConfiguration.nl-NL.resx">
-      <DependentUpon>NewsGroupsConfiguration.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="WinGui\Forms\NewsGroupsConfiguration.pl.resx">
-      <DependentUpon>NewsGroupsConfiguration.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="WinGui\Forms\NewsGroupsConfiguration.pt-BR.resx">
-      <DependentUpon>NewsGroupsConfiguration.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="WinGui\Forms\NewsGroupsConfiguration.resx">
-      <DependentUpon>NewsGroupsConfiguration.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="WinGui\Forms\NewsGroupsConfiguration.ru.resx">
-      <DependentUpon>NewsGroupsConfiguration.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="WinGui\Forms\NewsGroupsConfiguration.sr-Cyrl-RS.resx">
-      <DependentUpon>NewsGroupsConfiguration.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="WinGui\Forms\NewsGroupsConfiguration.sr-Latn-RS.resx">
-      <DependentUpon>NewsGroupsConfiguration.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="WinGui\Forms\NewsGroupsConfiguration.tr.resx">
-      <DependentUpon>NewsGroupsConfiguration.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="WinGui\Forms\NewsGroupsConfiguration.zh-Hans.resx">
-      <DependentUpon>NewsGroupsConfiguration.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="WinGui\Forms\NewsGroupsConfiguration.zh-Hant.resx">
-      <DependentUpon>NewsGroupsConfiguration.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
     <EmbeddedResource Include="WinGui\Forms\SplashScreen.resx">
       <DependentUpon>SplashScreen.cs</DependentUpon>
       <SubType>Designer</SubType>
@@ -1874,9 +1730,6 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Core\GuiInvoker.cs" />
-    <Compile Include="Core\IdentityNewsServerManager.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="Core\InitialInstanceActivator.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -2089,9 +1942,6 @@
     <Compile Include="WinGui\Dialogs\FeedSourceProperties.Designer.cs">
       <DependentUpon>FeedSourceProperties.cs</DependentUpon>
     </Compile>
-    <Compile Include="WinGui\Dialogs\PostReplyForm.Designer.cs">
-      <DependentUpon>PostReplyForm.cs</DependentUpon>
-    </Compile>
     <Compile Include="WinGui\Dialogs\SynchronizeFeedsWizard.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -2122,9 +1972,6 @@
     <Compile Include="WinGui\Dialogs\PodcastOptionsDialog.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="WinGui\Dialogs\PostReplyForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
     <Compile Include="WinGui\Dialogs\PreferencesDialog.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -2152,9 +1999,6 @@
     <Compile Include="WinGui\Forms\ControlHelpers\ToolbarHelper.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="WinGui\Forms\NewsGroupsConfiguration.Designer.cs">
-      <DependentUpon>NewsGroupsConfiguration.cs</DependentUpon>
-    </Compile>
     <Compile Include="WinGui\Forms\SplashScreen.Designer.cs">
       <DependentUpon>SplashScreen.cs</DependentUpon>
     </Compile>
@@ -2171,9 +2015,6 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="WinGui\Forms\Enums.cs" />
-    <Compile Include="WinGui\Forms\NewsGroupsConfiguration.cs">
-      <SubType>Form</SubType>
-    </Compile>
     <Compile Include="WinGui\Forms\SplashScreen.cs">
       <SubType>Form</SubType>
     </Compile>

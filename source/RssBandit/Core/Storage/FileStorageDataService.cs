@@ -86,45 +86,6 @@ namespace RssBandit.Core.Storage
 			}
 		}
 
-		public override IdentitiesDictionary LoadIdentities()
-		{
-			string fileName = UserIdentitiesFileName;
-			if (File.Exists(fileName))
-			{
-				XmlSerializer serializer = XmlHelper.SerializerCache.GetSerializer(typeof(SerializableIdentities));
-				using (Stream s = FileHelper.OpenForRead(fileName))
-				{
-					SerializableIdentities root = (SerializableIdentities)serializer.Deserialize(s);
-					IdentitiesDictionary coll = new IdentitiesDictionary(root.identities.Count);
-					foreach (var identity in root.identities)
-					{
-						coll.Add(identity.Name, identity);
-					}
-					return coll;
-				}
-			}
-			return new IdentitiesDictionary();
-		}
-
-		public override void SaveIdentities(IdentitiesDictionary identities)
-		{
-			string fileName = UserIdentitiesFileName;
-			if (identities == null || identities.Count == 0)
-			{
-				if (File.Exists(fileName))
-					FileHelper.Delete(fileName);
-				return;
-			}
-
-			XmlSerializer serializer = XmlHelper.SerializerCache.GetSerializer(typeof(SerializableIdentities));
-			using (Stream stream = FileHelper.OpenForWrite(fileName))
-			{
-				SerializableIdentities root = new SerializableIdentities();
-				root.identities = new List<UserIdentity>(identities.Values);
-				serializer.Serialize(stream, root);
-			}
-		}
-
 		public override string[] GetUserDataFileNames()
 		{
 			return new string[] { ColumnLayoutDefsFileName, UserIdentitiesFileName };

@@ -57,27 +57,6 @@ namespace RssBandit.AppServices
 		/// Gets the current application web proxy
 		/// </summary>
 		IWebProxy Proxy { get; }
-		/// <summary>
-		/// Gets the defined User Identities.
-		/// Items are objects of type IUserIdentity, 
-		/// keys are the correspondnig identity Name.
-		/// </summary>
-		IDictionary Identities { get; }
-		/// <summary>
-		/// Gets the defined NNTP News Server definitions.
-		/// Items are objects of type INntpServerDefinition, 
-		/// keys are the corresponding server Name.
-		/// </summary>
-        IDictionary<string, INntpServerDefinition> NntpServerDefinitions { get; }
-		/// <summary>
-		/// Gets the groups of a defined NNTP server. This will be usually
-		/// retrieved from a local cache, if available.
-		/// </summary>
-		/// <param name="nntpServerName">String. Name of the NNTP Server</param>
-		/// <param name="forceReloadFromServer">If true, it loads the list of groups from the nntp server. If false,
-		/// it will get them from local cache</param>
-		/// <returns>list of strings: group names</returns>
-		IList GetNntpNewsGroups(string nntpServerName, bool forceReloadFromServer);
 
 		/// <summary>
 		/// Gets the News Item Formatter Stylesheet list.
@@ -100,19 +79,7 @@ namespace RssBandit.AppServices
 		/// <param name="selectedSection">OptionDialogSection</param>
 		/// <param name="optionsChangedHandler">A Change EventHandler</param>
 		void ShowOptions(OptionDialogSection selectedSection, IWin32Window owner, EventHandler optionsChangedHandler);
-		/// <summary>
-		/// Display the User Identity Management Dialog.
-		/// </summary>
-		/// <param name="owner">The owner.</param>
-		/// <param name="definitionChangedHandler">A Change EventHandler</param>
-		void ShowUserIdentityManagementDialog(IWin32Window owner, EventHandler definitionChangedHandler);
-		/// <summary>
-		/// Display the NNTP Server Management Dialog.
-		/// </summary>
-		/// <param name="owner">The owner.</param>
-		/// <param name="definitionChangedHandler">A Change EventHandler</param>
-		void ShowNntpServerManagementDialog(IWin32Window owner, EventHandler definitionChangedHandler);
-		
+
 		/// <summary>
 		/// Shows the podcast options dialog.
 		/// </summary>

@@ -1,14 +1,3 @@
-#region Version Info Header
-
-/*
- * $Id$
- * $HeadURL$
- * Last modified by $Author$
- * Last modified at $Date$
- * $Revision$
- */
-
-#endregion
 
 //#undef USEAUTOUPDATE
 #define USEAUTOUPDATE
@@ -118,10 +107,8 @@ namespace RssBandit
 
         private WinGuiMain guiMain;
         private Control scaleControl;
-        private PostReplyForm postReplyForm;
         private SearchEngineHandler searchEngines;
         private ThreadResultManager threadResultManager;
-        private IdentityNewsServerManager identityNewsServerManager;
         private IAddInManager addInManager;
     	private ColumnLayoutManager columnLayoutManager;
 
@@ -397,7 +384,6 @@ namespace RssBandit
 #endif
 
             searchEngines = new SearchEngineHandler();
-            identityNewsServerManager = new IdentityNewsServerManager(this);
             addInManager = new ServiceManager();
 			columnLayoutManager = new ColumnLayoutManager();
 
@@ -943,7 +929,6 @@ namespace RssBandit
 				guiMain.SaveSubscriptionTreeState();
 				guiMain.SyncFinderNodes();
 				columnLayoutManager.Reset();
-				IdentityManager.Reset();
 				guiMain.InitiatePopulateTreeFeeds();
 				guiMain.LoadAndRestoreSubscriptionTreeState();
 				return true;
@@ -1032,16 +1017,6 @@ namespace RssBandit
 
 
         public RssBanditPreferences Preferences { get; set; }
-
-        public IdentityNewsServerManager IdentityManager
-        {
-            get { return identityNewsServerManager; }
-        }
-
-        public IdentityNewsServerManager NntpServerManager
-        {
-            get { return identityNewsServerManager; }
-        }
 
 		/// <summary>
 		/// Notification method about a setting that was modified,
@@ -2357,17 +2332,6 @@ namespace RssBandit
             if (!string.IsNullOrEmpty(Preferences.UserName) &&
                 string.IsNullOrEmpty(Preferences.UserIdentityForComments))
             {
-				if (!IdentityManager.Identities.ContainsKey(Preferences.UserName))
-				{
-                    //create a UserIdentity from Prefs. properties
-                    var ui = new UserIdentity();
-                    ui.Name = ui.RealName = Preferences.UserName;
-                    ui.ResponseAddress = ui.MailAddress = Preferences.UserMailAddress;
-                    ui.ReferrerUrl = Preferences.Referer;
-					IdentityManager.Identities.Add(ui.Name, ui);
-                    
-                }
-                
                 // set/reset values:
                 Preferences.UserIdentityForComments = Preferences.UserName;
                 Preferences.UserName = String.Empty;
@@ -2377,14 +2341,7 @@ namespace RssBandit
             }
 
             // 1.6.x migrations to phoenix (2.0):
-
-			// migrate User Identities:
-            if (FeedSource.MigrationProperties.ContainsKey("UserIdentity"))
-            {
-				List<NewsComponents.Feed.UserIdentity> oldVersionIdentities = (List<NewsComponents.Feed.UserIdentity>)
-            		FeedSource.MigrationProperties["UserIdentity"];
-            	IdentityManager.MigrateOrMergeIdentities(oldVersionIdentities, true);
-            }
+            
 
             // migrate stylesheet:
             if (FeedSource.MigrationProperties.ContainsKey("Stylesheet"))
@@ -5648,151 +5605,6 @@ namespace RssBandit
             InvokeOnGui(() => guiMain.SetGuiStateFeedback(message, state));
         }
 
-        /// <summary>
-        /// PostReplyForm callback
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="replyEventArgs"></param>
-        private void OnPostReplyFormPostReply(object sender, PostReplyEventArgs replyEventArgs)
-        {
-            bool success = false;
-
-            string title = replyEventArgs.Title;
-            string name = replyEventArgs.FromName;
-            string url = replyEventArgs.FromUrl;
-            string email = replyEventArgs.FromEMail;
-            string comment;
-
-            INewsItem item2post, item2reply;
-            PostReplyThreadHandler prth;
-
-            if (replyEventArgs.ReplyToItem != null)
-            {
-                item2reply = replyEventArgs.ReplyToItem;
-                string parentID = item2reply.Id;
-
-                var tempDoc = new XmlDocument();
-
-                if (replyEventArgs.Beautify)
-                {
-// not yet active (but in next release):
-                    comment = replyEventArgs.Comment.Replace("\r\n", "<br />");
-                    item2post =
-                        new NewsItem(sentItemsFeed, title, url, comment, DateTime.Now, null, ContentType.Html,
-                                     new Dictionary<XmlQualifiedName, string>(), url, parentID);
-                }
-                else
-                {
-                    comment = replyEventArgs.Comment;
-                    item2post =
-                        new NewsItem(sentItemsFeed, title, url, comment, DateTime.Now, null, null, parentID);
-                }
-
-                string commentUrl = item2reply.CommentUrl;
-                item2post.FeedDetails = item2reply.FeedDetails;
-                item2post.Author = (email == null) || (email.Trim().Length == 0) ? name : email + " (" + name + ")";
-
-                /* redundancy here, because Joe Gregorio changed spec now must support both <author> and <dc:creator> */
-                XmlElement emailNode = tempDoc.CreateElement("author");
-                emailNode.InnerText = item2post.Author;
-
-                item2post.OptionalElements.Add(new XmlQualifiedName("author"), emailNode.OuterXml);
-                item2post.ContentType = ContentType.Html;
-            	FeedSourceEntry entry = FeedSources.SourceOf(item2reply);
-				prth = new PostReplyThreadHandler(entry == null ? BanditFeedSource: entry.Source, commentUrl, item2post, item2reply);
-                DialogResult result = prth.Start(postReplyForm, SR.GUIStatusPostReplyToItem);
-
-                if (result != DialogResult.OK)
-                    return;
-
-                if (!prth.OperationSucceeds)
-                {
-                    MessageError(String.Format(SR.ExceptionPostReplyToNewsItem,
-                                               (string.IsNullOrEmpty(item2reply.Title)
-                                                    ? item2reply.Link
-                                                    : item2reply.Title),
-                                               prth.OperationException.Message));
-                    return;
-                }
-
-                AddSentNewsItem(item2reply, item2post);
-                success = true;
-            }
-            else if (replyEventArgs.PostToFeed != null)
-            {
-                INewsFeed f = replyEventArgs.PostToFeed;
-                var tempDoc = new XmlDocument();
-
-                if (replyEventArgs.Beautify)
-                {
-// not yet active (but in next release):
-                    comment = replyEventArgs.Comment.Replace("\r\n", "<br />");
-                    item2post =
-                        new NewsItem(sentItemsFeed, title, url, comment, DateTime.Now, null, ContentType.Html,
-                                     new Dictionary<XmlQualifiedName, string>(), url, null);
-                }
-                else
-                {
-                    comment = replyEventArgs.Comment;
-                    item2post = new NewsItem(sentItemsFeed, title, url, comment, DateTime.Now, null, null, null);
-                }
-
-                item2post.CommentStyle = SupportedCommentStyle.NNTP;
-                // in case the feed does not yet have downloaded items, we may get null here:
-                item2post.FeedDetails = BanditFeedSource.GetFeedDetails(f.link);
-                if (item2post.FeedDetails == null)
-                    item2post.FeedDetails =
-                        new FeedInfo(f.id, f.cacheurl, new List<INewsItem>(0), f.title, f.link, f.title);
-                item2post.Author = (email == null) || (email.Trim().Length == 0) ? name : email + " (" + name + ")";
-
-                /* redundancy here, because Joe Gregorio changed spec now must support both <author> and <dc:creator> */
-                XmlElement emailNode = tempDoc.CreateElement("author");
-                emailNode.InnerText = item2post.Author;
-
-                item2post.OptionalElements.Add(new XmlQualifiedName("author"), emailNode.OuterXml);
-                item2post.ContentType = ContentType.Html;
-
-				prth = new PostReplyThreadHandler(BanditFeedSource, item2post, f);
-                DialogResult result = prth.Start(postReplyForm, SR.GUIStatusPostNewFeedItem);
-
-                if (result != DialogResult.OK)
-                    return;
-
-                if (!prth.OperationSucceeds)
-                {
-                    MessageError(String.Format(SR.ExceptionPostNewFeedItem,
-                                               (string.IsNullOrEmpty(item2post.Title) ? f.link : item2post.Title),
-                                               prth.OperationException.Message));
-                    return;
-                }
-
-                AddSentNewsItem(f, item2post);
-                success = true;
-            }
-
-            if (success)
-            {
-                if (postReplyForm != null)
-                {
-                    postReplyForm.Hide();
-
-                    if (!postReplyForm.IsDisposed)
-                    {
-                        postReplyForm.Dispose();
-                    }
-                    postReplyForm = null;
-                }
-            }
-            else
-            {
-                if (postReplyForm != null)
-                {
-                    postReplyForm.Show();
-                    Win32.NativeMethods.SetForegroundWindow(postReplyForm.Handle);
-                }
-            }
-        }
-
         #region global app helper
 
 		/// <summary>
@@ -5932,7 +5744,7 @@ namespace RssBandit
                 LoadSearchEngines();
 
             using (var propertiesDialog =
-                new PreferencesDialog(CurrentGlobalRefreshRateMinutes, Preferences, searchEngines, IdentityManager)
+                new PreferencesDialog(CurrentGlobalRefreshRateMinutes, Preferences, searchEngines)
                 )
             {
                 propertiesDialog.OnApplyPreferences += OnApplyPreferences;
@@ -5956,34 +5768,6 @@ namespace RssBandit
 
                 //cleanup
             }
-        }
-
-        /// <summary>
-        /// Shows the NNTP server management dialog.
-        /// </summary>
-        /// <param name="owner">The owner.</param>
-        /// <param name="definitionChangeEventHandler">The definition change event handler.</param>
-        public void ShowNntpServerManagementDialog(IWin32Window owner, EventHandler definitionChangeEventHandler)
-        {
-            if (definitionChangeEventHandler != null)
-                NntpServerManager.NewsServerDefinitionsModified += definitionChangeEventHandler;
-            NntpServerManager.ShowNewsServerSubscriptionsDialog(owner ?? guiMain);
-            if (definitionChangeEventHandler != null)
-                NntpServerManager.NewsServerDefinitionsModified -= definitionChangeEventHandler;
-        }
-
-        /// <summary>
-        /// Shows the user identity management dialog.
-        /// </summary>
-        /// <param name="owner">The owner.</param>
-        /// <param name="definitionChangeEventHandler">The definition change event handler.</param>
-        public void ShowUserIdentityManagementDialog(IWin32Window owner, EventHandler definitionChangeEventHandler)
-        {
-            if (definitionChangeEventHandler != null)
-                IdentityManager.IdentityDefinitionsModified += definitionChangeEventHandler;
-            IdentityManager.ShowIdentityDialog(owner ?? guiMain);
-            if (definitionChangeEventHandler != null)
-                IdentityManager.IdentityDefinitionsModified -= definitionChangeEventHandler;
         }
 
         string ICoreApplication.DefaultCategory
@@ -6302,27 +6086,6 @@ namespace RssBandit
             }
 
             return false;
-        }
-
-        IDictionary ICoreApplication.Identities
-        {
-            get { return new ReadOnlyDictionary(IdentityManager.Identities); }
-        }
-
-        IDictionary<string, INntpServerDefinition> ICoreApplication.NntpServerDefinitions
-        {
-            get { return NntpServerManager.CurrentNntpServers; }
-        }
-
-        IList ICoreApplication.GetNntpNewsGroups(string nntpServerName, bool forceReloadFromServer)
-        {
-        	INntpServerDefinition sd;
-            if (! string.IsNullOrEmpty(nntpServerName) &&
-                NntpServerManager.CurrentNntpServers.TryGetValue(nntpServerName, out sd))
-            {
-                return (IList) NntpServerManager.LoadNntpNewsGroups(guiMain, sd, forceReloadFromServer);
-            }
-            return new string[] {};
         }
 
         /// <summary>
