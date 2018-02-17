@@ -17,18 +17,11 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 //
-[assembly: AssemblyTitle("RSS Bandit")]
-[assembly: AssemblyDescription("Your desktop news aggregator")]
-[assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("RssBandit")]
-[assembly: AssemblyCopyright("(C) 2003-2013 by www.rssbandit.org")]
-[assembly: AssemblyTrademark("")]
-[assembly: AssemblyCulture("")]		
+
 
 //[assembly: CLSCompliant(true)]
 [assembly: ComVisible(false)]
 
 // MSDN Magazine July 2002, p. 94: marks our bundled resources as
 // culture specific to save assembly resource resolve steps:
-[assembly: NeutralResourcesLanguageAttribute("en-US")]
+[assembly: NeutralResourcesLanguage("en-US")]
